@@ -21,9 +21,9 @@ class BlueButton extends StatelessWidget {
         );
       },
       child: Padding(
-        padding: getMarginOrPadding(bottom: 10, top: 16, right: 8, left: 8),
+        padding: getMarginOrPadding(bottom: 10, top: 24, right: 16, left: 16),
         child: Container(
-          width: 716.w,
+         width: 716.w,
           height: 51.h,
           decoration: BoxDecoration(
             color: UiConstants.blueButtonColor,

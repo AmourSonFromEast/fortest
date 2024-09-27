@@ -12,8 +12,8 @@ class MainApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ScreenUtilInit(
-      designSize:
-          Size(360, 690), // Укажите размер экрана, на который вы ориентируетесь
+      designSize: Size(360, 690), // Ука
+
       minTextAdapt: true,
       splitScreenMode: false,
       builder: (context, child) {
