@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fortest/components/background.dart';
 import 'package:fortest/components/button.dart';
 import 'package:fortest/components/divider.dart';
@@ -46,7 +47,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
           ),
           // Индикатор текущей страницы
           Positioned(
-            bottom: 150,
+            bottom: 110.h,
             left: 0,
             right: 0,
             child: Center(
@@ -54,9 +55,9 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                 controller: _pageController,
                 count: 3, // Количество страниц
                 effect: const ScrollingDotsEffect(
-                  dotWidth: 10.0, // Ширина неактивных точек
-                  dotHeight: 10.0, // Высота неактивных точек
-                  activeDotScale: 1.3, // Увеличение активной точки по всем осям
+                  dotWidth: 12.0, // Ширина неактивных точек
+                  dotHeight: 12.0, // Высота неактивных точек
+                  activeDotScale: 1.4, // Увеличение активной точки по всем осям
                   activeDotColor:
                       UiConstants.grayGradient, // Цвет активной точки
                   dotColor: UiConstants.dividerLine, // Цвет неактивных точек
@@ -67,7 +68,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
           ),
           // Кнопка продолжения
           Positioned(
-            bottom: 40,
+            bottom: 40.h,
             left: 0,
             right: 0,
             child: BlueButton(
@@ -209,7 +210,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Padding(
-          padding: getMarginOrPadding(bottom: 18, top: 130, left: 45, right: 50),
+          padding: getMarginOrPadding(bottom: 0, top: 120, left: 45, right: 50),
           child: Text(
             "CONFIGURING \nSETTINGS \nFOR YOUR GOALS...",
             style: UiConstants.textStyle1.copyWith(color: UiConstants.white),
@@ -217,15 +218,15 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
           ),
         ),
         Container(
-          height: 300.0,
-          width: 300.0,
+          height: 300.0.h,
+          width: 300.0.w,
           child: Image.asset(
             Paths.viking,
             fit: BoxFit.contain,
           ),
         ),
         Padding(
-          padding: getMarginOrPadding(bottom: 28, top: 24, left: 24, right: 24),
+          padding: getMarginOrPadding(bottom: 0, top: 0, left: 24, right: 24),
           child: RichText(
             textAlign: TextAlign.center,
             text: TextSpan(
