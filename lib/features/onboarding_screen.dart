@@ -27,19 +27,53 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
     return Scaffold(
       body: Stack(
         children: [
-          const Background(), // Background image
-          PageView(
-            controller: _pageController,
-            onPageChanged: (index) {
-              setState(() {
-                _currentPage = index;
-              });
-            },
-            children: [
-              _buildPurposeScreen(),
-              _buildExperienceScreen(),
-              _buildFinalScreen(),
-            ],
+          const Background(), // Фоновое изображение
+          Padding(
+            padding: getMarginOrPadding(bottom: 0),
+            child: PageView(
+              controller: _pageController,
+              onPageChanged: (index) {
+                setState(() {
+                  _currentPage = index;
+                });
+              },
+              children: [
+                _buildPurposeScreen(),
+                _buildExperienceScreen(),
+                _buildFinalScreen(),
+              ],
+            ),
+          ),
+          // Индикатор текущей страницы
+          Positioned(
+            bottom: 150,
+            left: 0,
+            right: 0,
+            child: Center(
+              child: SmoothPageIndicator(
+                controller: _pageController,
+                count: 3, // Количество страниц
+                effect: const ScrollingDotsEffect(
+                  dotWidth: 10.0, // Ширина неактивных точек
+                  dotHeight: 10.0, // Высота неактивных точек
+                  activeDotScale: 1.3, // Увеличение активной точки по всем осям
+                  activeDotColor:
+                      UiConstants.grayGradient, // Цвет активной точки
+                  dotColor: UiConstants.dividerLine, // Цвет неактивных точек
+                  spacing: 12.0, // Расстояние между точками
+                ),
+              ),
+            ),
+          ),
+          // Кнопка продолжения
+          Positioned(
+            bottom: 40,
+            left: 0,
+            right: 0,
+            child: BlueButton(
+              pageController: _pageController,
+              buttonText: _currentPage == 2 ? "Get Started" : "Continue",
+            ),
           ),
         ],
       ),
@@ -58,6 +92,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
             textAlign: TextAlign.center,
           ),
         ),
+        // Ваши радио-кнопки
         _buildRadioListTile(
           "Hide Browsing History",
           _purposeSelection,
@@ -101,20 +136,6 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
           },
           Paths.planet,
         ),
-        const Spacer(),
-        SmoothPageIndicator(
-          controller: _pageController,
-          count: 3, // Количество страниц
-          effect: const ScrollingDotsEffect(
-            dotWidth: 10.0, // Ширина неактивных точек
-            dotHeight: 10.0, // Высота неактивных точек
-            activeDotScale: 1.2, // Увеличение активной точки по всем осям
-            activeDotColor: UiConstants.grayGradient, // Цвет активной точки
-            dotColor: UiConstants.dividerLine, // Цвет неактивных точек
-            spacing: 12.0, // Расстояние между точками
-          ),
-        ),
-        BlueButton(pageController: _pageController, buttonText: "continue"),
       ],
     );
   }
@@ -125,8 +146,8 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
       children: [
         Center(
           child: Padding(
-            padding: getMarginOrPadding(
-                bottom:61, top: 130, left: 49.5, right: 49),
+            padding:
+                getMarginOrPadding(bottom: 60, top: 130, left: 49.5, right: 49),
             child: Text(
               "TAILOR YOUR VPN \nEXPERIENCE",
               style: UiConstants.textStyle1.copyWith(color: UiConstants.white),
@@ -134,7 +155,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
             ),
           ),
         ),
-
+        // Ваши радио-кнопки
         _buildRadioListTile(
           "Optimize For High-speed",
           _vpnExperienceSelection,
@@ -178,20 +199,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
           },
           Paths.glasses,
         ),
-        const Spacer(),
-        SmoothPageIndicator(
-          controller: _pageController,
-          count: 3, // Количество страниц
-          effect: const ScrollingDotsEffect(
-            dotWidth: 10.0, // Ширина неактивных точек
-            dotHeight: 10.0, // Высота неактивных точек
-            activeDotScale: 1.2, // Увеличение активной точки по всем осям
-            activeDotColor: UiConstants.grayGradient, // Цвет активной точки
-            dotColor: UiConstants.dividerLine, // Цвет неактивных точек
-            spacing: 12.0, // Расстояние между точками
-          ),
-        ),
-        BlueButton(pageController: _pageController, buttonText: "continue"),
+        Spacer(),
       ],
     );
   }
@@ -201,7 +209,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Padding(
-          padding: getMarginOrPadding(bottom: 18, top: 90, left: 45, right: 50),
+          padding: getMarginOrPadding(bottom: 18, top: 130, left: 45, right: 50),
           child: Text(
             "CONFIGURING \nSETTINGS \nFOR YOUR GOALS...",
             style: UiConstants.textStyle1.copyWith(color: UiConstants.white),
@@ -209,61 +217,46 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
           ),
         ),
         Container(
-          height: 300.0, // Задайте явные размеры
+          height: 300.0,
           width: 300.0,
           child: Image.asset(
             Paths.viking,
-            fit: BoxFit
-                .contain, // Убедитесь, что содержимое адаптируется по размеру
+            fit: BoxFit.contain,
           ),
         ),
         Padding(
           padding: getMarginOrPadding(bottom: 28, top: 24, left: 24, right: 24),
           child: RichText(
-              textAlign: TextAlign.center,
-              text: TextSpan(
-                  // set the default style for the children TextSpans
-                  style: UiConstants.textStyle4.copyWith(
+            textAlign: TextAlign.center,
+            text: TextSpan(
+              style: UiConstants.textStyle4.copyWith(
+                color: UiConstants.gray,
+              ),
+              children: const [
+                TextSpan(
+                  text: 'By continuing, you agree to\n our ',
+                ),
+                TextSpan(
+                  text: 'Privacy Policy',
+                  style: TextStyle(
+                      color: UiConstants.white, fontWeight: FontWeight.bold),
+                ),
+                TextSpan(
+                  text: ' and ',
+                  style: TextStyle(
                     color: UiConstants.gray,
                   ),
-                  children: const [
-                    TextSpan(
-                      text: 'By continuing,you agree to\n our ',
-                    ),
-                    TextSpan(
-                      text: 'Privacy Policy',
-                      style: TextStyle(
-                          color: UiConstants.white,
-                          fontWeight: FontWeight.bold),
-                    ),
-                    TextSpan(
-                      text: ' and ',
-                      style: TextStyle(
-                        color: UiConstants.gray,
-                      ),
-                    ),
-                    TextSpan(
-                      text: 'Terms of Use.',
-                      style: TextStyle(
-                          color: UiConstants.white,
-                          fontWeight: FontWeight.bold),
-                    ),
-                  ])),
-        ),
-        const Spacer(),
-        SmoothPageIndicator(
-          controller: _pageController,
-          count: 3, // Количество страниц
-          effect: const ScrollingDotsEffect(
-            dotWidth: 10.0, // Ширина неактивных точек
-            dotHeight: 10.0, // Высота неактивных точек
-            activeDotScale: 1.2, // Увеличение активной точки по всем осям
-            activeDotColor: UiConstants.grayGradient, // Цвет активной точки
-            dotColor: UiConstants.dividerLine, // Цвет неактивных точек
-            spacing: 12.0, // Расстояние между точками
+                ),
+                TextSpan(
+                  text: 'Terms of Use.',
+                  style: TextStyle(
+                      color: UiConstants.white, fontWeight: FontWeight.bold),
+                ),
+              ],
+            ),
           ),
         ),
-        BlueButton(pageController: _pageController, buttonText: "get started"),
+        Spacer(),
       ],
     );
   }
@@ -274,29 +267,33 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
     ValueChanged<String?> onChanged,
     String imagePath,
   ) {
-    return ListTile(
-      leading: IconContainer(
-        imagePath: imagePath,
-      ),
-      title: Text(
-        softWrap: false,
-        title,
-        style: UiConstants.textStyle2.copyWith(color: UiConstants.white),
-        overflow: TextOverflow.visible,
-      ),
-      trailing: Radio<String>(
-        value: title,
-        groupValue: groupValue,
-        activeColor: UiConstants.blueButtonColor, // Цвет активной кнопки
-        fillColor: WidgetStateProperty.resolveWith<Color?>(
-          (Set<WidgetState> states) {
-            if (states.contains(WidgetState.selected)) {
-              return UiConstants.blueButtonColor; // Цвет для выбранной кнопки
-            }
-            return UiConstants.dividerLine; // Цвет для неактивной кнопки
-          },
+    return Padding(
+      padding: getMarginOrPadding(right: 16,left: 16),
+      child: ListTile(
+        contentPadding: EdgeInsets.zero,
+        leading: IconContainer(
+          imagePath: imagePath,
         ),
-        onChanged: onChanged,
+        title: Text(
+          softWrap: false,
+          title,
+          style: UiConstants.textStyle2.copyWith(color: UiConstants.white),
+          overflow: TextOverflow.visible,
+        ),
+        trailing: Radio<String>(
+          value: title,
+          groupValue: groupValue,
+          activeColor: UiConstants.blueButtonColor,
+          fillColor: WidgetStateProperty.resolveWith<Color?>(
+            (Set<WidgetState> states) {
+              if (states.contains(WidgetState.selected)) {
+                return UiConstants.blueButtonColor;
+              }
+              return UiConstants.dividerLine;
+            },
+          ),
+          onChanged: onChanged,
+        ),
       ),
     );
   }
